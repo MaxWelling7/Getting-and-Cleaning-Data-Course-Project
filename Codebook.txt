@@ -1,0 +1,43 @@
+Codebook for Getting and Cleaning Data Course Project:
+
+The following text files are used in this project:
+
+Descriptive files:
+  - activity_labels.txt  --> dataset activity_labels
+    file containing the description for the 6 activities measured
+  - features.txt         --> dataset features     
+    file containing the description of the 561 values measured for each activity
+
+test dataset:
+  - subject_test.txt     --> dataset subject_test
+    file containing the subject id for each measurement in X_test.txt
+  - X_test.txt           --> dataset X_test  
+    file containing 561 measurements per line
+  - y_test.txt           --> dataset y_test
+    file containing the activity for each measurement in X_test.txt
+Training dataset
+  - subject_train.txt    --> dataset subject_train
+    file containing the subject id for each measurement in X_train.txt
+  - X_train.txt          --> dataset X_train
+    file containing 561 measurements per line
+  - y_train.txt          --> dataset y_train
+    file containing the activity for each measurement in X_train.txt
+  
+The total & tidy dataset of all combined is stored in dataframe X:
+- X = X_test added to X_train using rbind
+- subject = subject_test added to subject_train using rbind
+- y = y_test added to y_train by using rbind
+- replacing the non-descriptive column names V... by taking the descriptive name from
+  dataframe activity_labels
+- Removing columns from dataframe X not containing a mean or std measurement by 
+  subsetting on column names that contain either "mean()" or "std()" using grep.
+  From the original 561 measurement variables 66 remain
+- adding the column Subject to X from dataframe subject using cbind as first column
+- adding the column Activity to X from dataframe y using cbind as second column
+
+The tidy dataframe Xmeans contains the average (mean) of each of the 66 measurement 
+variables per subject and activity
+This is constructed by melting the measurements from Xvper subject/activity combination
+and then casting back to a dataframe calculating the mean of each variable.
+
+Finally a text file Xmeans.txt is created in the main directory from dataframe Xmeans.
